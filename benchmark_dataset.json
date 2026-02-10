@@ -1,0 +1,152 @@
+[
+    {
+        "id": 1,
+        "difficulty": "simple",
+        "question": "Je cherche la liste des factures pour le fournisseur Haribo",
+        "expected_solr": "doc_type:facture AND fournisseur:Haribo"
+    },
+    {
+        "id": 2,
+        "difficulty": "simple",
+        "question": "Affiche tous les documents de type \"Contrat\"",
+        "expected_solr": "doc_type:contrat"
+    },
+    {
+        "id": 3,
+        "difficulty": "simple",
+        "question": "Trouve-moi les incidents assignés à l'utilisateur \"Martin\"",
+        "expected_solr": "doc_type:incident AND assigne_a:Martin"
+    },
+    {
+        "id": 4,
+        "difficulty": "simple",
+        "question": "Quels sont les devis avec le statut \"Validé\" ?",
+        "expected_solr": "doc_type:devis AND statut:Validé"
+    },
+    {
+        "id": 5,
+        "difficulty": "simple",
+        "question": "Je veux voir les rapports concernant le projet \"Alpha\"",
+        "expected_solr": "doc_type:rapport AND projet:Alpha"
+    },
+    {
+        "id": 6,
+        "difficulty": "range",
+        "question": "factures prix supérieur à 1500€",
+        "expected_solr": "doc_type:facture AND montant:[1500 TO *]"
+    },
+    {
+        "id": 7,
+        "difficulty": "date",
+        "question": "Donne moi l'ensemble de mes factures du mois dernier",
+        "expected_solr": "doc_type:facture AND date_creation:[NOW-1MONTH/MONTH TO NOW/MONTH]"
+    },
+    {
+        "id": 8,
+        "difficulty": "range",
+        "question": "Trouve les commandes dont le montant est compris entre 200 et 500 euros",
+        "expected_solr": "doc_type:commande AND montant:[200 TO 500]"
+    },
+    {
+        "id": 9,
+        "difficulty": "date",
+        "question": "Affiche les incidents créés avant le 1er janvier 2024",
+        "expected_solr": "doc_type:incident AND date_creation:[* TO 2024-01-01T00:00:00Z]"
+    },
+    {
+        "id": 10,
+        "difficulty": "date",
+        "question": "Je veux les documents modifiés il y a moins de 7 jours",
+        "expected_solr": "date_modif:[NOW-7DAYS TO NOW]"
+    },
+    {
+        "id": 11,
+        "difficulty": "range",
+        "question": "Liste des factures inférieures à 100€",
+        "expected_solr": "doc_type:facture AND montant:[* TO 100]"
+    },
+    {
+        "id": 12,
+        "difficulty": "boolean",
+        "question": "Je veux tous mes documents sur le sujet Incident ligne 12 mais pas ceux qui sont \"Clôturés\"",
+        "expected_solr": "sujet:Incident AND ligne:12 AND -statut:Clôturé"
+    },
+    {
+        "id": 13,
+        "difficulty": "boolean",
+        "question": "Affiche les factures de Haribo ou de Lutti",
+        "expected_solr": "doc_type:facture AND (fournisseur:Haribo OR fournisseur:Lutti)"
+    },
+    {
+        "id": 14,
+        "difficulty": "boolean",
+        "question": "Documents qui contiennent \"Urgent\" et qui ne sont pas des factures",
+        "expected_solr": "texte_complet:Urgent AND -doc_type:facture"
+    },
+    {
+        "id": 15,
+        "difficulty": "boolean",
+        "question": "Recherche les incidents de priorité \"Haute\" ou \"Critique\" sur la ligne 14",
+        "expected_solr": "doc_type:incident AND ligne:14 AND (priorite:Haute OR priorite:Critique)"
+    },
+    {
+        "id": 16,
+        "difficulty": "boolean",
+        "question": "Je veux tout sauf les documents du fournisseur \"Interne\"",
+        "expected_solr": "-fournisseur:Interne"
+    },
+    {
+        "id": 17,
+        "difficulty": "text_sort",
+        "question": "Recherche le mot \"fuite\" dans tous les rapports de maintenance",
+        "expected_solr": "doc_type:rapport AND categorie:maintenance AND texte_complet:fuite"
+    },
+    {
+        "id": 18,
+        "difficulty": "sort",
+        "question": "Affiche les 10 factures les plus chères",
+        "expected_solr": "doc_type:facture&sort=montant desc&rows=10"
+    },
+    {
+        "id": 19,
+        "difficulty": "sort",
+        "question": "Montre-moi les incidents les plus récents en premier",
+        "expected_solr": "doc_type:incident&sort=date_creation desc"
+    },
+    {
+        "id": 20,
+        "difficulty": "text_sort",
+        "question": "Documents contenant l'expression exacte \"erreur système critique\"",
+        "expected_solr": "texte_complet:\"erreur système critique\""
+    },
+    {
+        "id": 21,
+        "difficulty": "sort",
+        "question": "Trie les devis par date de création croissante",
+        "expected_solr": "doc_type:devis&sort=date_creation asc"
+    },
+    {
+        "id": 22,
+        "difficulty": "ambiguity",
+        "question": "Quels documents parlent de problèmes de sécurité récents ?",
+        "expected_solr": "texte_complet:\"problèmes de sécurité\" AND date_creation:[NOW-30DAYS TO NOW]"
+    },
+    {
+        "id": 23,
+        "difficulty": "ambiguity",
+        "question": "Sors-moi les gros contrats de l'année dernière",
+        "expected_solr": "doc_type:contrat AND montant:[50000 TO *] AND date_creation:[NOW-1YEAR/YEAR TO NOW/YEAR]"
+    },
+    {
+        "id": 24,
+        "difficulty": "ambiguity",
+        "question": "Y a-t-il des factures impayées pour le client X ?",
+        "expected_solr": "doc_type:facture AND statut:Impayée AND client:X"
+    },
+    {
+        "id": 25,
+        "difficulty": "ambiguity",
+        "question": "Montre tout ce qui concerne la maintenance de la semaine passée",
+        "expected_solr": "texte_complet:maintenance AND date_creation:[NOW-7DAYS TO NOW]"
+    }
+]
