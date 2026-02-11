@@ -13,7 +13,6 @@ BATCH_SIZE = 250    # Envoi par paquets pour ne pas saturer le réseau
 fake = Faker('fr_FR') # Générateur de données françaises
 
 # --- 1. DÉFINITION DU SCHÉMA COMPLET ---
-# On s'assure que Solr connait tous les champs utilisés dans tes questions
 def setup_schema():
     print("🔧 Configuration du schéma Solr...")
     fields = [
@@ -37,7 +36,7 @@ def setup_schema():
         payload = {"add-field": field}
         # On ignore les erreurs si le champ existe déjà
         requests.post(f"{SOLR_URL}/schema", json=payload)
-    print("✅ Schéma configuré.")
+    print("Schéma configuré.")
 
 # --- 2. FONCTIONS UTILITAIRES ---
 def random_date(start_year=2020):
@@ -155,16 +154,16 @@ def main():
     
     all_docs = []
     
-    print("💎 Génération des 'Golden Records' (Données ciblées)...")
+    print("Génération des 'Golden Records' (Données ciblées)...")
     golden = generate_golden_records()
     all_docs.extend(golden)
     
-    print(f"🎲 Génération de {TOTAL_DOCS} documents aléatoires...")
+    print(f"Génération de {TOTAL_DOCS} documents aléatoires...")
     noise_needed = TOTAL_DOCS - len(golden)
     noise = generate_random_batch(noise_needed)
     all_docs.extend(noise)
     
-    print(f"🚀 Envoi de {len(all_docs)} documents vers Solr...")
+    print(f"Envoi de {len(all_docs)} documents vers Solr...")
     
     # Envoi par batch
     for i in tqdm(range(0, len(all_docs), BATCH_SIZE)):
@@ -177,12 +176,12 @@ def main():
                 headers={"Content-Type": "application/json"}
             )
             if response.status_code != 200:
-                print(f"❌ Erreur Batch {i}: {response.text}")
+                print(f"Erreur Batch {i}: {response.text}")
         except Exception as e:
-            print(f"❌ Exception: {e}")
+            print(f"Exception: {e}")
 
-    print("\n✨ Terminé ! Ta base Solr est peuplée.")
-    print(f"👉 Vérifie ici : http://localhost:8983/solr/#/benchmark_core/query")
+    print("\nTerminé !")
+    print(f"http://localhost:8983/solr/#/benchmark_core/query")
 
 if __name__ == "__main__":
     main()
