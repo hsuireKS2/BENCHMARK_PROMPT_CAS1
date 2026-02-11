@@ -148,5 +148,455 @@
         "difficulty": "ambiguity",
         "question": "Montre tout ce qui concerne la maintenance de la semaine passée",
         "expected_solr": "texte_complet:maintenance AND date_creation:[NOW-7DAYS TO NOW]"
+    },
+    {
+        "id": 26,
+        "difficulty": "simple",
+        "question": "Liste tous les rapports liés au projet \"Omega\"",
+        "expected_solr": "doc_type:rapport AND projet:Omega"
+    },
+    {
+        "id": 27,
+        "difficulty": "simple",
+        "question": "Je cherche la commande assignée à \"Martin\"",
+        "expected_solr": "doc_type:commande AND assigne_a:Martin"
+    },
+    {
+        "id": 28,
+        "difficulty": "simple",
+        "question": "Affiche les factures du fournisseur \"Orange\"",
+        "expected_solr": "doc_type:facture AND fournisseur:Orange"
+    },
+    {
+        "id": 29,
+        "difficulty": "range",
+        "question": "Devis avec un montant inférieur à 500 euros",
+        "expected_solr": "doc_type:devis AND montant:[* TO 500]"
+    },
+    {
+        "id": 30,
+        "difficulty": "range",
+        "question": "Cherche les contrats dont le montant est compris entre 2000 et 3000",
+        "expected_solr": "doc_type:contrat AND montant:[2000 TO 3000]"
+    },
+    {
+        "id": 31,
+        "difficulty": "date",
+        "question": "Quels sont les incidents créés entre le 1er et le 5 janvier 2024 ?",
+        "expected_solr": "doc_type:incident AND date_creation:[2024-01-01T00:00:00Z TO 2024-01-05T23:59:59Z]"
+    },
+    {
+        "id": 32,
+        "difficulty": "date",
+        "question": "Documents modifiés il y a plus de 5 ans",
+        "expected_solr": "date_modif:[* TO NOW-5YEARS]"
+    },
+    {
+        "id": 33,
+        "difficulty": "boolean",
+        "question": "Je veux les incidents avec le statut Ouvert ou En_cours",
+        "expected_solr": "doc_type:incident AND (statut:Ouvert OR statut:En_cours)"
+    },
+    {
+        "id": 34,
+        "difficulty": "boolean",
+        "question": "Trouve les contrats qui ne sont pas \"Validé\"",
+        "expected_solr": "doc_type:contrat AND -statut:Validé"
+    },
+    {
+        "id": 35,
+        "difficulty": "boolean",
+        "question": "Commandes de 2023 pour Haribo sauf celles avec statut \"Annulée\"",
+        "expected_solr": "doc_type:commande AND fournisseur:Haribo AND date_creation:[2023-01-01T00:00:00Z TO 2023-12-31T23:59:59Z] AND -statut:Annulée"
+    },
+    {
+        "id": 36,
+        "difficulty": "boolean",
+        "question": "Rapports sur le projet Alpha de priorité Haute ou Critique",
+        "expected_solr": "doc_type:rapport AND projet:Alpha AND (priorite:Haute OR priorite:Critique)"
+    },
+    {
+        "id": 37,
+        "difficulty": "text_sort",
+        "question": "Recherche \"panne réseau\" dans le texte des incidents",
+        "expected_solr": "doc_type:incident AND texte_complet:\"panne réseau\""
+    },
+    {
+        "id": 38,
+        "difficulty": "text_sort",
+        "question": "Tous les documents mentionnant le mot clé \"confidentialité\"",
+        "expected_solr": "texte_complet:confidentialité"
+    },
+    {
+        "id": 39,
+        "difficulty": "sort",
+        "question": "Liste des fournisseurs par ordre alphabétique",
+        "expected_solr": "fournisseur:[* TO *]&sort=fournisseur asc"
+    },
+    {
+        "id": 40,
+        "difficulty": "sort",
+        "question": "Les 5 dernières commandes créées",
+        "expected_solr": "doc_type:commande&sort=date_creation desc&rows=5"
+    },
+    {
+        "id": 41,
+        "difficulty": "sort",
+        "question": "Trie les devis du montant le plus petit au plus grand",
+        "expected_solr": "doc_type:devis&sort=montant asc"
+    },
+    {
+        "id": 42,
+        "difficulty": "ambiguity",
+        "question": "Affiche tout ce qui est urgent",
+        "expected_solr": "priorite:Critique"
+    },
+    {
+        "id": 43,
+        "difficulty": "ambiguity",
+        "question": "Qui travaille sur la ligne de production 12 ?",
+        "expected_solr": "ligne:12 AND assigne_a:[* TO *]"
+    },
+    {
+        "id": 44,
+        "difficulty": "ambiguity",
+        "question": "Sors-moi les vieux incidents encore ouverts",
+        "expected_solr": "doc_type:incident AND statut:Ouvert AND date_creation:[* TO NOW-1YEAR]"
+    },
+    {
+        "id": 45,
+        "difficulty": "simple",
+        "question": "Factures venant du fournisseur Google",
+        "expected_solr": "doc_type:facture AND fournisseur:Google"
+    },
+    {
+        "id": 46,
+        "difficulty": "range",
+        "question": "Projets avec un montant supérieur à 1 million",
+        "expected_solr": "doc_type:projet AND montant:[1000000 TO *]"
+    },
+    {
+        "id": 47,
+        "difficulty": "date",
+        "question": "Rapports créés cette semaine",
+        "expected_solr": "doc_type:rapport AND date_creation:[NOW/WEEK TO NOW/WEEK+1WEEK]"
+    },
+    {
+        "id": 48,
+        "difficulty": "boolean",
+        "question": "Incidents critiques assignés à Pierre ou Paul",
+        "expected_solr": "doc_type:incident AND priorite:Critique AND (assigne_a:Pierre OR assigne_a:Paul)"
+    },
+    {
+        "id": 49,
+        "difficulty": "text_sort",
+        "question": "Recherche floue sur le terme \"connexion\"",
+        "expected_solr": "texte_complet:connexion~"
+    },
+    {
+        "id": 50,
+        "difficulty": "sort",
+        "question": "Les contrats les plus chers en premier",
+        "expected_solr": "doc_type:contrat&sort=montant desc"
+    },
+    {
+        "id": 51,
+        "difficulty": "simple",
+        "question": "Montre-moi les devis du projet \"Beta\"",
+        "expected_solr": "doc_type:devis AND projet:Beta"
+    },
+    {
+        "id": 52,
+        "difficulty": "simple",
+        "question": "Documents avec la priorité \"Faible\"",
+        "expected_solr": "priorite:Faible"
+    },
+    {
+        "id": 53,
+        "difficulty": "simple",
+        "question": "Affiche tout ce qui vient de la ligne de production 5",
+        "expected_solr": "ligne:5"
+    },
+    {
+        "id": 54,
+        "difficulty": "simple",
+        "question": "Je veux voir les documents assignés à \"Sophie\"",
+        "expected_solr": "assigne_a:Sophie"
+    },
+    {
+        "id": 55,
+        "difficulty": "simple",
+        "question": "Factures avec le statut \"En_attente\"",
+        "expected_solr": "doc_type:facture AND statut:En_attente"
+    },
+    {
+        "id": 56,
+        "difficulty": "range",
+        "question": "Contrats de plus de 50000 euros",
+        "expected_solr": "doc_type:contrat AND montant:[50000 TO *]"
+    },
+    {
+        "id": 57,
+        "difficulty": "range",
+        "question": "Trouve les montants exactement entre 10 et 20 euros",
+        "expected_solr": "montant:[10 TO 20]"
+    },
+    {
+        "id": 58,
+        "difficulty": "range",
+        "question": "Commandes inférieures à 500 euros",
+        "expected_solr": "doc_type:commande AND montant:[* TO 500]"
+    },
+    {
+        "id": 59,
+        "difficulty": "date",
+        "question": "Documents créés il y a exactement 3 jours",
+        "expected_solr": "date_creation:[NOW-3DAYS/DAY TO NOW-2DAYS/DAY]"
+    },
+    {
+        "id": 60,
+        "difficulty": "date",
+        "question": "Incidents modifiés depuis le début du mois",
+        "expected_solr": "doc_type:incident AND date_modif:[NOW/MONTH TO NOW]"
+    },
+    {
+        "id": 61,
+        "difficulty": "date",
+        "question": "Rapports datant d'avant 2020",
+        "expected_solr": "doc_type:rapport AND date_creation:[* TO 2020-01-01T00:00:00Z]"
+    },
+    {
+        "id": 62,
+        "difficulty": "date",
+        "question": "Tout ce qui a été créé hier",
+        "expected_solr": "date_creation:[NOW-1DAY/DAY TO NOW/DAY]"
+    },
+    {
+        "id": 63,
+        "difficulty": "boolean",
+        "question": "Factures de Haribo ou de Interne",
+        "expected_solr": "doc_type:facture AND (fournisseur:Haribo OR fournisseur:Interne)"
+    },
+    {
+        "id": 64,
+        "difficulty": "boolean",
+        "question": "Projet Alpha mais pas les incidents",
+        "expected_solr": "projet:Alpha AND -doc_type:incident"
+    },
+    {
+        "id": 65,
+        "difficulty": "boolean",
+        "question": "Documents assignés à Martin ou Sophie sur la ligne 2",
+        "expected_solr": "(assigne_a:Martin OR assigne_a:Sophie) AND ligne:2"
+    },
+    {
+        "id": 66,
+        "difficulty": "boolean",
+        "question": "Tout sauf le fournisseur \"Lutti\"",
+        "expected_solr": "-fournisseur:Lutti"
+    },
+    {
+        "id": 67,
+        "difficulty": "boolean",
+        "question": "Incidents ni \"Clôturé\" ni \"Rejeté\"",
+        "expected_solr": "doc_type:incident AND -(statut:Clôturé OR statut:Rejeté)"
+    },
+    {
+        "id": 68,
+        "difficulty": "text_sort",
+        "question": "Recherche le terme exact \"arrêt machine\"",
+        "expected_solr": "texte_complet:\"arrêt machine\""
+    },
+    {
+        "id": 69,
+        "difficulty": "text_sort",
+        "question": "Documents parlant de \"qualité\" en priorité Haute",
+        "expected_solr": "texte_complet:qualité AND priorite:Haute"
+    },
+    {
+        "id": 70,
+        "difficulty": "text_sort",
+        "question": "Recherche floue pour \"maintnence\"",
+        "expected_solr": "texte_complet:maintnence~"
+    },
+    {
+        "id": 71,
+        "difficulty": "sort",
+        "question": "Les 3 plus gros devis",
+        "expected_solr": "doc_type:devis&sort=montant desc&rows=3"
+    },
+    {
+        "id": 72,
+        "difficulty": "sort",
+        "question": "Trie les incidents par date de modification, du plus récent au plus vieux",
+        "expected_solr": "doc_type:incident&sort=date_modif desc"
+    },
+    {
+        "id": 73,
+        "difficulty": "sort",
+        "question": "Affiche les projets triés par nom",
+        "expected_solr": "doc_type:projet&sort=projet asc"
+    },
+    {
+        "id": 74,
+        "difficulty": "sort",
+        "question": "Les factures les moins chères d'abord",
+        "expected_solr": "doc_type:facture&sort=montant asc"
+    },
+    {
+        "id": 75,
+        "difficulty": "ambiguity",
+        "question": "Documents sans assignation",
+        "expected_solr": "-assigne_a:[* TO *]"
+    },
+    {
+        "id": 76,
+        "difficulty": "ambiguity",
+        "question": "Les gros montants (plus de 100k)",
+        "expected_solr": "montant:[100000 TO *]"
+    },
+    {
+        "id": 77,
+        "difficulty": "ambiguity",
+        "question": "Problèmes récents sur la ligne 1",
+        "expected_solr": "doc_type:incident AND ligne:1 AND date_creation:[NOW-30DAYS TO NOW]"
+    },
+    {
+        "id": 78,
+        "difficulty": "ambiguity",
+        "question": "Tout ce qui concerne \"Lutti\"",
+        "expected_solr": "fournisseur:Lutti"
+    },
+    {
+        "id": 79,
+        "difficulty": "simple",
+        "question": "Documents avec le statut \"Brouillon\"",
+        "expected_solr": "statut:Brouillon"
+    },
+    {
+        "id": 80,
+        "difficulty": "boolean",
+        "question": "Commandes validées ou payées",
+        "expected_solr": "doc_type:commande AND (statut:Validé OR statut:Payée)"
+    },
+    {
+        "id": 81,
+        "difficulty": "range",
+        "question": "Factures entre 500 et 1000 euros",
+        "expected_solr": "doc_type:facture AND montant:[500 TO 1000]"
+    },
+    {
+        "id": 82,
+        "difficulty": "date",
+        "question": "Créé après le 15 mars 2023",
+        "expected_solr": "date_creation:[2023-03-15T00:00:00Z TO *]"
+    },
+    {
+        "id": 83,
+        "difficulty": "text_sort",
+        "question": "Texte contenant \"urgence\" ou \"immédiat\"",
+        "expected_solr": "texte_complet:(urgence OR immédiat)"
+    },
+    {
+        "id": 84,
+        "difficulty": "sort",
+        "question": "Derniers rapports mis à jour",
+        "expected_solr": "doc_type:rapport&sort=date_modif desc"
+    },
+    {
+        "id": 85,
+        "difficulty": "boolean",
+        "question": "Contrats Haribo non signés",
+        "expected_solr": "doc_type:contrat AND fournisseur:Haribo AND -statut:Signé"
+    },
+    {
+        "id": 86,
+        "difficulty": "ambiguity",
+        "question": "C'est quoi les priorités critiques ?",
+        "expected_solr": "priorite:Critique"
+    },
+    {
+        "id": 87,
+        "difficulty": "simple",
+        "question": "Tous les documents",
+        "expected_solr": "*:*"
+    },
+    {
+        "id": 88,
+        "difficulty": "range",
+        "question": "Montant strictement supérieur à 0",
+        "expected_solr": "montant:{0 TO *]"
+    },
+    {
+        "id": 89,
+        "difficulty": "date",
+        "question": "Modifié dans les dernières 24 heures",
+        "expected_solr": "date_modif:[NOW-24HOURS TO NOW]"
+    },
+    {
+        "id": 90,
+        "difficulty": "boolean",
+        "question": "Incidents ligne 1 ou ligne 2",
+        "expected_solr": "doc_type:incident AND (ligne:1 OR ligne:2)"
+    },
+    {
+        "id": 91,
+        "difficulty": "text_sort",
+        "question": "Contient la phrase \"validation requise\"",
+        "expected_solr": "texte_complet:\"validation requise\""
+    },
+    {
+        "id": 92,
+        "difficulty": "sort",
+        "question": "Top 10 des commandes les plus récentes",
+        "expected_solr": "doc_type:commande&sort=date_creation desc&rows=10"
+    },
+    {
+        "id": 93,
+        "difficulty": "ambiguity",
+        "question": "Je veux voir mes brouillons",
+        "expected_solr": "statut:Brouillon"
+    },
+    {
+        "id": 94,
+        "difficulty": "simple",
+        "question": "Type de document inconnu",
+        "expected_solr": "-doc_type:[* TO *]"
+    },
+    {
+        "id": 95,
+        "difficulty": "boolean",
+        "question": "Projet X ou Y mais pas Z",
+        "expected_solr": "(projet:X OR projet:Y) AND -projet:Z"
+    },
+    {
+        "id": 96,
+        "difficulty": "range",
+        "question": "Montant jusqu'à 50 euros inclus",
+        "expected_solr": "montant:[* TO 50]"
+    },
+    {
+        "id": 97,
+        "difficulty": "date",
+        "question": "Rapports du mois de mai 2023",
+        "expected_solr": "doc_type:rapport AND date_creation:[2023-05-01T00:00:00Z TO 2023-05-31T23:59:59Z]"
+    },
+    {
+        "id": 98,
+        "difficulty": "text_sort",
+        "question": "Mot clé \"erreur\" dans les factures",
+        "expected_solr": "doc_type:facture AND texte_complet:erreur"
+    },
+    {
+        "id": 99,
+        "difficulty": "sort",
+        "question": "Trie tout par priorité",
+        "expected_solr": "*:*&sort=priorite desc"
+    },
+    {
+        "id": 100,
+        "difficulty": "ambiguity",
+        "question": "Affiche les documents en retard (impayés)",
+        "expected_solr": "statut:Impayée"
     }
 ]
