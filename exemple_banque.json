@@ -1,0 +1,205 @@
+[
+  {
+    "category": "simple",
+    "input": "Factures de plus de 1000€",
+    "output": "doc_type:facture AND montant:[1000 TO *]"
+  },
+  {
+    "category": "simple",
+    "input": "Je cherche le dossier client 98765",
+    "output": "doc_type:dossier_client AND id:98765"
+  },
+  {
+    "category": "simple",
+    "input": "Documents du fournisseur Haribo",
+    "output": "fournisseur:Haribo"
+  },
+  {
+    "category": "simple",
+    "input": "Affiche les incidents de Martin",
+    "output": "doc_type:incident AND assigne_a:Martin"
+  },
+  {
+    "category": "simple",
+    "input": "Tous les devis en statut Validé",
+    "output": "doc_type:devis AND statut:Validé"
+  },
+  
+  {
+    "category": "text",
+    "input": "Documents récents qui parlent de chaise",
+    "output": "texte_complet:chaise AND date_creation:[NOW-30DAYS TO NOW]"
+  },
+  {
+    "category": "text",
+    "input": "Recherche la phrase exacte \"erreur fatale\"",
+    "output": "texte_complet:\"erreur fatale\""
+  },
+  {
+    "category": "text",
+    "input": "Trouve des documents qui mentionnent 'connexion' ou 'réseau'",
+    "output": "texte_complet:(connexion OR réseau)"
+  },
+  {
+    "category": "text",
+    "input": "Recherche floue pour le mot 'maintnence' (faute de frappe)",
+    "output": "texte_complet:maintnence~"
+  },
+  
+  {
+    "category": "existence",
+    "input": "Incidents urgents non assignés",
+    "output": "doc_type:incident AND texte_complet:urgent AND -assigne_a:[* TO *]"
+  },
+  {
+    "category": "existence",
+    "input": "Documents sans fournisseur renseigné",
+    "output": "-fournisseur:[* TO *]"
+  },
+  {
+    "category": "existence",
+    "input": "Tâches qui ont un responsable (assignées)",
+    "output": "doc_type:tache AND assigne_a:[* TO *]"
+  },
+
+  {
+    "category": "sorting",
+    "input": "Les 10 plus grosses commandes",
+    "output": "doc_type:commande&sort=montant desc&rows=10"
+  },
+  {
+    "category": "sorting",
+    "input": "Trie les rapports du plus ancien au plus récent",
+    "output": "doc_type:rapport&sort=date_creation asc"
+  },
+  {
+    "category": "sorting",
+    "input": "Affiche les 5 derniers incidents créés",
+    "output": "doc_type:incident&sort=date_creation desc&rows=5"
+  },
+  {
+    "category": "sorting",
+    "input": "Liste des employés par ordre alphabétique",
+    "output": "doc_type:employe&sort=nom asc"
+  },
+  {
+    "category": "sorting",
+    "input": "Les produits les moins chers d'abord",
+    "output": "doc_type:produit&sort=montant asc"
+  },
+
+  {
+    "category": "date",
+    "input": "Factures du mois dernier",
+    "output": "doc_type:facture AND date_creation:[NOW-1MONTH/MONTH TO NOW/MONTH]"
+  },
+  {
+    "category": "date",
+    "input": "Documents créés hier",
+    "output": "date_creation:[NOW-1DAY/DAY TO NOW/DAY]"
+  },
+  {
+    "category": "date",
+    "input": "Incidents datant d'il y a plus de 2 ans",
+    "output": "doc_type:incident AND date_creation:[* TO NOW-2YEARS]"
+  },
+  {
+    "category": "date",
+    "input": "Rapports publiés en 2023",
+    "output": "doc_type:rapport AND date_creation:[2023-01-01T00:00:00Z TO 2023-12-31T23:59:59Z]"
+  },
+  {
+    "category": "date",
+    "input": "Modifié dans les dernières 24 heures",
+    "output": "date_modif:[NOW-24HOURS TO NOW]"
+  },
+  {
+    "category": "date",
+    "input": "A faire pour demain",
+    "output": "date_echeance:[NOW+1DAY/DAY TO NOW+2DAYS/DAY]"
+  },
+
+  {
+    "category": "range",
+    "input": "Montant entre 50 et 100 euros",
+    "output": "montant:[50 TO 100]"
+  },
+  {
+    "category": "range",
+    "input": "Commandes inférieures à 500 euros",
+    "output": "doc_type:commande AND montant:[* TO 500]"
+  },
+  {
+    "category": "range",
+    "input": "Projets à gros budget (plus de 1M)",
+    "output": "doc_type:projet AND montant:[1000000 TO *]"
+  },
+  {
+    "category": "range",
+    "input": "Prix strictement supérieur à 0",
+    "output": "montant:{0 TO *]"
+  },
+
+  {
+    "category": "boolean",
+    "input": "Factures Haribo ou Lutti",
+    "output": "doc_type:facture AND (fournisseur:Haribo OR fournisseur:Lutti)"
+  },
+  {
+    "category": "boolean",
+    "input": "Tout sauf les brouillons",
+    "output": "-statut:Brouillon"
+  },
+  {
+    "category": "boolean",
+    "input": "Incidents critiques mais pas ceux de la ligne 1",
+    "output": "doc_type:incident AND priorite:Critique AND -ligne:1"
+  },
+  {
+    "category": "boolean",
+    "input": "Projet Alpha ou Beta, et statut Validé",
+    "output": "(projet:Alpha OR projet:Beta) AND statut:Validé"
+  },
+  {
+    "category": "boolean",
+    "input": "Ni urgent ni critique",
+    "output": "-(priorite:Urgent OR priorite:Critique)"
+  },
+
+  {
+    "category": "business_logic",
+    "input": "Les documents urgents",
+    "output": "priorite:Critique OR priorite:Haute"
+  },
+  {
+    "category": "business_logic",
+    "input": "Factures impayées",
+    "output": "doc_type:facture AND (statut:Impayée OR statut:Relance)"
+  },
+  {
+    "category": "business_logic",
+    "input": "Mes dossiers en cours",
+    "output": "doc_type:dossier AND statut:En_cours AND assigne_a:moi"
+  },
+  {
+    "category": "business_logic",
+    "input": "Archives",
+    "output": "statut:Archivé OR date_creation:[* TO NOW-5YEARS]"
+  },
+  
+  {
+    "category": "complex",
+    "input": "Factures Haribo de l'année dernière de plus de 500€",
+    "output": "doc_type:facture AND fournisseur:Haribo AND date_creation:[NOW-1YEAR/YEAR TO NOW/YEAR] AND montant:[500 TO *]"
+  },
+  {
+    "category": "complex",
+    "input": "Derniers contrats signés pour le projet Omega",
+    "output": "doc_type:contrat AND statut:Signé AND projet:Omega&sort=date_creation desc&rows=10"
+  },
+  {
+    "category": "complex",
+    "input": "Incidents non résolus sur la ligne 12",
+    "output": "doc_type:incident AND ligne:12 AND -statut:Résolu AND -statut:Clôturé"
+  }
+]
